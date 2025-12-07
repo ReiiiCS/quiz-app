@@ -10,11 +10,26 @@ const app = new Hono<{ Bindings: Env }>();
 
 // CORS middleware
 app.use('/*', async (c, next) => {
-  const origin = c.req.header('Origin') || '*';
+  const allowedOrigins = [
+    'https://quiz-app-byx6-bgs5200f6-rey-gabriel-l-literals-projects.vercel.app',
+    'https://quiz-app-*.vercel.app', // Allow all Vercel preview deployments
+    'http://localhost:3000', // Local development
+  ];
+  
+  const origin = c.req.header('Origin') || '';
+  const isAllowed = allowedOrigins.some(allowed => {
+    if (allowed.includes('*')) {
+      // Simple wildcard matching for Vercel preview URLs
+      return origin.includes('vercel.app');
+    }
+    return origin === allowed;
+  });
+  
+  const allowedOrigin = isAllowed ? origin : allowedOrigins[0];
   
   if (c.req.method === 'OPTIONS') {
     return c.text('', 204, {
-      'Access-Control-Allow-Origin': origin,
+      'Access-Control-Allow-Origin': allowedOrigin,
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Max-Age': '86400',
@@ -23,7 +38,7 @@ app.use('/*', async (c, next) => {
   
   await next();
   
-  c.header('Access-Control-Allow-Origin', origin);
+  c.header('Access-Control-Allow-Origin', allowedOrigin);
   c.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   c.header('Access-Control-Allow-Headers', 'Content-Type');
 });

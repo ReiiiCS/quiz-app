@@ -187,41 +187,24 @@ npm start          # Run production server
 
 ## 🚢 Deployment
 
-### Frontend: Vercel
+For detailed step-by-step deployment instructions, see **[DEPLOYMENT.md](./DEPLOYMENT.md)**.
 
-1. **Connect Repository**:
-   - Push code to GitHub
-   - Import project in Vercel dashboard
-   - Vercel will auto-detect Next.js
+### Quick Summary
 
-2. **Environment Variables**:
-   - Add `NEXT_PUBLIC_API_URL` pointing to your Cloudflare Worker URL
-   - Example: `NEXT_PUBLIC_API_URL=https://quiz-api.your-subdomain.workers.dev`
+**Backend (Cloudflare Workers)**:
+```bash
+cd backend
+npx wrangler login
+npm run deploy
+```
 
-3. **Deploy**:
-   - Vercel will automatically deploy on push to main branch
-   - Or manually deploy from dashboard
+**Frontend (Vercel)**:
+1. Push code to GitHub
+2. Import project in Vercel dashboard
+3. Set environment variable: `NEXT_PUBLIC_API_URL=https://your-worker.workers.dev`
+4. Deploy
 
-### Backend: Cloudflare Workers
-
-1. **Login to Cloudflare**:
-   ```bash
-   cd backend
-   npx wrangler login
-   ```
-
-2. **Deploy**:
-   ```bash
-   npm run deploy
-   ```
-
-3. **Get Worker URL**:
-   - After deployment, you'll receive a URL like `https://quiz-api.your-subdomain.workers.dev`
-   - Update frontend `NEXT_PUBLIC_API_URL` with this URL
-
-### App Link
-
-After deployment, your application will be available at:
+After deployment:
 - **Frontend**: `https://your-app.vercel.app`
 - **Backend**: `https://quiz-api.your-subdomain.workers.dev`
 
