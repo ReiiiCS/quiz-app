@@ -205,8 +205,8 @@ npm run deploy
 4. Deploy
 
 After deployment:
-- **Frontend**: `https://your-app.vercel.app`
-- **Backend**: `https://quiz-api.your-subdomain.workers.dev`
+- **Frontend**: `https://quiz-app-uat3.vercel.app/`
+- **Backend**: `https://quiz-api.quizzz-app.workers.dev`
 
 ## 🧪 Testing
 
@@ -296,5 +296,12 @@ quiz/
 - [ ] Add progress tracking
 - [ ] Support for images in questions
 
+## 🕒 Time Spent
 
+  - **Roughly 6-8 hours** for initial implementation, including:
+  - Setting up Hono backend on Cloudflare Workers and basic API routes: **2 hours**
+  - Implementing quiz grading and validation logic: **1.5 hours**
+  - Setting up Next.js frontend with TailwindCSS, state management, and error/loading UI: **2.5 hours**
+  - Writing documentation, configuration, & deployment scripts: **1 hour**
+- Future enhancements & polish will require additional time.
 
