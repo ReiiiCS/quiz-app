@@ -113,5 +113,30 @@ app.get('/health', (c) => {
   return c.json({ status: 'ok' });
 });
 
+// Root endpoint - helpful info
+app.get('/', (c) => {
+  return c.json({
+    message: 'Quiz API',
+    version: '1.0.0',
+    endpoints: {
+      'GET /api/quiz': 'Get quiz questions',
+      'POST /api/grade': 'Grade quiz answers',
+      'GET /health': 'Health check',
+    },
+  });
+});
+
+// 404 handler for unknown routes
+app.notFound((c) => {
+  return c.json(
+    {
+      error: 'Not Found',
+      message: 'The requested endpoint does not exist',
+      availableEndpoints: ['/api/quiz', '/api/grade', '/health'],
+    },
+    404
+  );
+});
+
 export default app;
 
