@@ -87,10 +87,16 @@ export default function Home() {
       setSubmitting(true);
       setError(null);
       
-      const answersArray: Answer[] = Object.entries(answers).map(([id, value]) => ({
-        id: id,
-        value: value,
-      }));
+      const answersArray: Answer[] = Object.entries(answers).map(([id, value]) => {
+        // Object.entries always returns string keys, but question IDs may be numbers
+        // Find the matching question to get the correct ID type
+        const question = questions.find(q => String(q.id) === id);
+        const questionId = question ? question.id : (isNaN(Number(id)) ? id : Number(id));
+        return {
+          id: questionId,
+          value: value,
+        };
+      });
 
       const response = await fetch(`${API_BASE_URL}/api/grade`, {
         method: 'POST',
