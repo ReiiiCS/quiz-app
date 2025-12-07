@@ -313,7 +313,5 @@ quiz/
 - [ ] Add progress tracking
 - [ ] Support for images in questions
 
-## 📄 License
 
-MIT
 
